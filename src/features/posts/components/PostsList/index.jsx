@@ -1,8 +1,13 @@
 import { useGetPostsQuery } from "features/api/apiSlice";
+import { selectAuth } from "features/auth/authSlice";
 import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import NewPostForm from "./components/NewPostForm";
 import PostExcerpt from "./components/PostExcerpt";
 
 const PostsList = () => {
+  const isAuth = useSelector((state) => selectAuth(state));
+
   const {
     data: posts = [],
     isLoading,
@@ -12,8 +17,9 @@ const PostsList = () => {
   } = useGetPostsQuery();
 
   const sortedPosts = useMemo(() => {
+    console.log(posts);
     const sortedPosts = posts.slice();
-    sortedPosts.sort((a, b) => b.updated_at.localeCompare(a.updated_at));
+    sortedPosts.sort((a, b) => b.created_at.localeCompare(a.created_at));
     return sortedPosts;
   }, [posts]);
 
@@ -22,10 +28,11 @@ const PostsList = () => {
   if (isLoading) {
     content = "loading";
   } else if (isSuccess) {
-    console.log(posts);
-    content = sortedPosts.map((post) => (
+    const renderedPosts = sortedPosts.map((post) => (
       <PostExcerpt post={post} key={post.id} />
-    ))
+    ));
+
+    content = renderedPosts;
   } else if (isError) {
     content = <div>{error.toString()}</div>
   }
@@ -33,6 +40,7 @@ const PostsList = () => {
   return (
     <section className="PostsLists">
       <h2>Posts</h2>
+      {isAuth && <NewPostForm />}
       {content}
     </section>
   );

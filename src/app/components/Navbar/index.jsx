@@ -14,7 +14,12 @@ const Navbar = () => {
     dispatch(authLogout());
   }
 
-  let content = <button type="button" onClick={handleClick}>Déconnexion</button>;
+  let content = (
+    <>
+      <NavLink to="/profile">Mon profil</NavLink>
+      <button type="button" onClick={handleClick}>Déconnexion</button>
+    </>
+  );
   
   if (!isAuth) {
     content = <NavLink to="/login">Connexion</NavLink>
@@ -23,7 +28,7 @@ const Navbar = () => {
   return (
     <nav>
       <section>
-        <h1>Tweeter</h1>
+        <h1>Shmeeter</h1>
 
         <div className="navContent">
           <div className="navLinks">

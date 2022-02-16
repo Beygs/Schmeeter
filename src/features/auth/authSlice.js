@@ -21,6 +21,9 @@ const authSlice = createSlice({
       state.auth = false;
       state.id = "";
     },
+    triggerAuth(state, action) {
+      state.auth = true;
+    }
   },
 });
 
@@ -28,7 +31,10 @@ export default authSlice.reducer;
 
 export const {
   authLogin,
-  authLogout
+  authLogout,
+  triggerAuth,
 } = authSlice.actions;
 
 export const selectAuth = (state) => state.auth.auth;
+
+export const myId = (state) => state.auth.id;

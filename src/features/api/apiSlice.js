@@ -17,6 +17,7 @@ export const apiSlice = createApi({
       return headers;
     }
   }),
+  tagTypes: ["Post"],
   endpoints: builder => ({
     registerUser: builder.mutation({
       query: (userInfo) => ({
@@ -33,10 +34,44 @@ export const apiSlice = createApi({
       }),
     }),
     getMe: builder.query({
-      query: () => "/users/me"
+      query: () => "/users/me",
     }),
     getPosts: builder.query({
       query: () => "/posts",
+      providesTags: (result = [], error, arg) => [
+        "Post",
+        ...result.map(({ id }) => ({ type: "Post", id })),
+      ],
+    }),
+    getUser: builder.query({
+      query: (userId) => `/users/${userId}`,
+    }),
+    addNewPost: builder.mutation({
+      query: (postContent) => ({
+        url: "/posts",
+        method: "POST",
+        body: postContent,
+      }),
+      invalidatesTags: ["Post"],
+    }),
+    editPost: builder.mutation({
+      query: (post) => ({
+        url: `/posts/${post.id}`,
+        method: "PUT",
+        body: post,
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Post", id: arg.id },
+      ],
+    }),
+    deletePost: builder.mutation({
+      query: (postId) => ({
+        url: `/posts/${postId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Post", id: arg },
+      ],
     }),
   }),
 });
@@ -46,4 +81,8 @@ export const {
   useLoginUserMutation,
   useGetPostsQuery,
   useGetMeQuery,
+  useGetUserQuery,
+  useAddNewPostMutation,
+  useEditPostMutation,
+  useDeletePostMutation,
 } = apiSlice;
