@@ -1,12 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { render } from 'react-dom';
 import App from './App';
-import { store } from './app/store';
+import { store } from 'app/store';
 import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import { apiSlice } from 'features/api/apiSlice';
+import { authLogin } from 'features/auth/authSlice';
+import Cookies from 'js-cookie';
 
-ReactDOM.render(
+const initializeAuth = async () => {
+  if (Cookies.get("token")) {
+    const payload = await store.dispatch(apiSlice.endpoints.getMe.initiate());
+
+    store.dispatch(authLogin({ userId: payload.data.id }));
+  }
+}
+
+initializeAuth();
+
+render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
@@ -14,8 +25,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
