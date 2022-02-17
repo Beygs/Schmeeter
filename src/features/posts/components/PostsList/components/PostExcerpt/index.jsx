@@ -4,7 +4,7 @@ import { myId, selectAuth } from "features/auth/authSlice";
 import { Link } from "react-router-dom";
 import EditPostForm from "features/posts/components/EditPostForm";
 import { useState } from "react";
-import { useDeletePostMutation } from "features/api/apiSlice";
+import { useDeletePostMutation, useEditPostMutation } from "features/api/apiSlice";
 
 const PostExcerpt = ({ post }) => {
   const [edit, setEdit] = useState(false);
@@ -12,6 +12,7 @@ const PostExcerpt = ({ post }) => {
   const isAuth = useSelector((state) => selectAuth(state));
   const userId = useSelector((state) => myId(state));
 
+  const [editPost, { isLoading }] = useEditPostMutation();
   const [deletePost] = useDeletePostMutation();
 
   const {
@@ -20,6 +21,7 @@ const PostExcerpt = ({ post }) => {
     text,
     like,
     created_at,
+    modified,
   } = post;
 
   const handleEdit = () => {
@@ -28,6 +30,20 @@ const PostExcerpt = ({ post }) => {
 
   const handleDelete = () => {
     deletePost(id);
+  }
+
+  const handleLike = () => {
+    const newPost = { ...post };
+
+    if (newPost.users_likes.filter((user) => user.id === userId).length > 0) {
+      newPost.like--;
+      newPost.users_likes = newPost.users_likes.filter((user) => user.id !== userId);
+    } else {
+      newPost.like++;
+      newPost.users_likes = newPost.users_likes.concat(userId);
+    }
+    
+    editPost(newPost);
   }
 
   return (
@@ -43,9 +59,16 @@ const PostExcerpt = ({ post }) => {
         </span>
       )}
       <p>
-        {text}
+        {text}{modified && <i>&nbsp;(Modifié)</i>}
       </p>
-      {isAuth && <p>{like} likes</p>}
+      {isAuth && (
+        <button
+          type="button"
+          className="like-btn"
+          onClick={handleLike}
+        >
+          {like} 👍
+        </button>)}
       <TimeAgo timestamp={created_at} />
       {edit && <EditPostForm post={post} setEdit={setEdit} />}
     </article>

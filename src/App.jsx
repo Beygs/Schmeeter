@@ -7,6 +7,7 @@ import LoginForm from 'features/auth/components/LoginForm';
 import { useSelector } from 'react-redux';
 import { selectAuth } from 'features/auth/authSlice';
 import UserProfile from 'features/users/components/UserProfile';
+import EditProfileForm from 'features/users/components/EditProfileForm';
 
 function App() {
   const PrivateRoute = ({ children }) => {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/profile" element={<PrivateRoute><UserProfile myprofile /></PrivateRoute>} />
+          <Route path="/profile/edit" element={<PrivateRoute><EditProfileForm /></PrivateRoute>} />
           <Route path="/users/:userId" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
           <Route path="/" element={<PostsList />} />
         </Routes>

@@ -17,7 +17,7 @@ const EditPostForm = ({ post, setEdit }) => {
     
     if (canSave) {
       try {
-        await editPost({ ...post, text: text });
+        await editPost({ ...post, text: text, modified: true });
         setEdit(false);
       } catch (e) {
         console.error("Error: ", e);

@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:1337",
+    baseUrl: "https://shmeeter-server.herokuapp.com",
     prepareHeaders: (headers) => {
       const token = Cookies.get("token");
 
@@ -17,7 +17,7 @@ export const apiSlice = createApi({
       return headers;
     }
   }),
-  tagTypes: ["Post"],
+  tagTypes: ["Post", "Profile"],
   endpoints: builder => ({
     registerUser: builder.mutation({
       query: (userInfo) => ({
@@ -45,6 +45,9 @@ export const apiSlice = createApi({
     }),
     getUser: builder.query({
       query: (userId) => `/users/${userId}`,
+      providesTags: (result, error, arg) => [
+        { type: "Profile", id: arg },
+      ],
     }),
     addNewPost: builder.mutation({
       query: (postContent) => ({
@@ -73,6 +76,16 @@ export const apiSlice = createApi({
         { type: "Post", id: arg },
       ],
     }),
+    editProfile: builder.mutation({
+      query: (user) => ({
+        url: "/users/me",
+        method: "PUT",
+        body: user,
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Profile", id: arg.id },
+      ],
+    }),
   }),
 });
 
@@ -85,4 +98,5 @@ export const {
   useAddNewPostMutation,
   useEditPostMutation,
   useDeletePostMutation,
+  useEditProfileMutation,
 } = apiSlice;
