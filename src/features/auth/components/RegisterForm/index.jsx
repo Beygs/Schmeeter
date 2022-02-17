@@ -1,3 +1,4 @@
+import { Section } from "app/components/Section";
 import { useRegisterUserMutation } from "features/api/apiSlice";
 import { authLogin } from "features/auth/authSlice";
 import Cookies from "js-cookie";
@@ -41,7 +42,7 @@ const RegisterForm = () => {
   }
 
   return (
-    <section>
+    <Section>
       <h2>S'enregistrer</h2>
       <form>
         <label htmlFor="username">Nom d'utilisateur :</label>
@@ -76,7 +77,7 @@ const RegisterForm = () => {
         </button>
       </form>
       <Link to="/login">J'ai déjà un compte</Link>
-    </section>
+    </Section>
   );
 };
 

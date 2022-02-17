@@ -1,3 +1,4 @@
+import { Section } from "app/components/Section";
 import { useLoginUserMutation } from "features/api/apiSlice";
 import { authLogin } from "features/auth/authSlice";
 import Cookies from "js-cookie";
@@ -35,7 +36,7 @@ const LoginForm = () => {
   }
 
   return (
-    <section>
+    <Section>
       <h2>Connexion</h2>
       <form>
         <label htmlFor="identifier">Identifiant :</label>
@@ -62,7 +63,7 @@ const LoginForm = () => {
         </button>
       </form>
       <Link to="/register">Je n'ai pas encore de compte</Link>
-    </section>
+    </Section>
   );
 };
 

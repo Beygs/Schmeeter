@@ -17,11 +17,12 @@ const Wrapper = styled.div`
   min-height: 100%;
   background: ${colors.bg};
   color: ${colors.txt};
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
 `
 
 const AppWrapper = styled.div`
-  display: flex;
-  justify-content: center;
+  margin-left: 5rem;
 `
 
 function App() {

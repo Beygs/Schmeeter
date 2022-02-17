@@ -1,3 +1,4 @@
+import { MutedText } from "app/components/Typography";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 
@@ -11,9 +12,9 @@ const TimeAgo = ({ timestamp }) => {
   }
 
   return (
-    <span title={timestamp}>
+    <MutedText title={timestamp}>
       &nbsp; <i>{timeAgo}</i>
-    </span>
+    </MutedText>
   );
 };
 

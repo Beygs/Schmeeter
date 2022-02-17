@@ -1,7 +1,26 @@
+import { colors } from "app/abstracts/variables";
+import { Button } from "app/components/Button";
 import { useAddNewPostMutation } from "features/api/apiSlice";
 import { myId } from "features/auth/authSlice";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
+
+const Form = styled.form`
+  display: flex;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  flex-direction: column;
+  align-items: flex-end;
+
+  input[type="text"] {
+    width: 100%;
+    border-radius: 1rem;
+    border: none;
+    padding: 1.5em;
+    margin-bottom: 0.5rem;
+  }
+`;
 
 const NewPostForm = () => {
   const [text, setText] = useState("");
@@ -30,18 +49,19 @@ const NewPostForm = () => {
 
   return (
     <section>
-      <h2>Ecrire un shmeet</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="postText">Shmeet :</label>
+      <Form onSubmit={handleSubmit}>
+        <label htmlFor="postText" hidden>Shmeet :</label>
         <input
           type="text"
           id="postText"
           name="postText"
+          placeholder="Qué kia dint'n'esprit ?"
           value={text}
           onChange={handleTextChange}
+          autoComplete="off"
         />
-        <input type="submit" disabled={!canSave} value="Poster le shmeet" />
-      </form>
+        <Button as="input" type="submit" disabled={!canSave} value="Poster le shmeet" />
+      </Form>
     </section>
   );
 };
