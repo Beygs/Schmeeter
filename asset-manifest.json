@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Shmeeter/static/css/main.ce902c81.css",
+    "main.js": "/Shmeeter/static/js/main.bc308ec3.js",
+    "index.html": "/Shmeeter/index.html",
+    "main.ce902c81.css.map": "/Shmeeter/static/css/main.ce902c81.css.map",
+    "main.bc308ec3.js.map": "/Shmeeter/static/js/main.bc308ec3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ce902c81.css",
+    "static/js/main.bc308ec3.js"
+  ]
+}
