@@ -32,7 +32,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Shmeeter">
       <Wrapper>
         <Navbar />
         <AppWrapper>

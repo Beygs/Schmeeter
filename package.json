@@ -2,6 +2,7 @@
   "name": "twitter",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://beygs.github.io/Shmeeter",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^4.2.4",
@@ -21,6 +22,8 @@
     "styled-components": "^5.3.3"
   },
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
