@@ -1,17 +1,19 @@
+import { LogButton, LogInput, LogLink } from "app/components/Form";
 import { Section } from "app/components/Section";
+import { MutedText } from "app/components/Typography";
 import { useRegisterUserMutation } from "features/api/apiSlice";
 import { authLogin } from "features/auth/authSlice";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [registerUser, { isLoading }] = useRegisterUserMutation();
+  const [registerUser] = useRegisterUserMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,7 +29,9 @@ const RegisterForm = () => {
     setPassword(e.target.value);
   }
 
-  const handleClick = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
       const payload = await registerUser({ username, email, password }).unwrap();
       setUsername("");
@@ -36,47 +40,46 @@ const RegisterForm = () => {
       Cookies.set("token", payload.jwt);
       dispatch(authLogin({ userId: payload.user.id }));
       navigate("/");
-    } catch (e) {
-      console.error("Failed to register user: ", e);
+    } catch (err) {
+      console.error("Failed to register user: ", err);
     }
   }
 
   return (
     <Section>
       <h2>S'enregistrer</h2>
-      <form>
-        <label htmlFor="username">Nom d'utilisateur :</label>
-        <input
+      <form onSubmit={handleSubmit}>
+        <MutedText as="label" htmlFor="username">Nom d'utilisateur :</MutedText>
+        <LogInput
           type="text"
           id="username"
           name="username"
           value={username}
           onChange={handleUsernameChange}
         />
-        <label htmlFor="email">Email</label>
-        <input
+        <MutedText as="label" htmlFor="email">Email</MutedText>
+        <LogInput
           type="email"
           id="email"
           name="email"
           value={email}
           onChange={handleEmailChange}
         />
-        <label htmlFor="password">Mot de passe :</label>
-        <input
+        <MutedText as="label" htmlFor="password">Mot de passe :</MutedText>
+        <LogInput
           type="password"
           id="password"
           name="password"
           value={password}
           onChange={handlePasswordChange}
         />
-        <button
-          type="button"
-          onClick={handleClick}
-        >
-          Lezgo !
-        </button>
+        <LogButton
+          as="input"
+          type="submit"
+          value="Lezgo !"
+        />
       </form>
-      <Link to="/login">J'ai déjà un compte</Link>
+      <LogLink to="/login">J'ai déjà un compte</LogLink>
     </Section>
   );
 };

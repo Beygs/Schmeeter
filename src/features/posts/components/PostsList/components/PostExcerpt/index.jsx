@@ -62,10 +62,10 @@ const LikeButton = styled.button`
     width: 1rem;
     margin-right: 0.5rem;
     fill: ${props => props.liked ? colors["red"] : colors["txt"]};
-
-    &:hover path {
-      fill: ${colors["red"]};
-    }
+  }
+  
+  &:hover path {
+    fill: ${colors["red"]};
   }
 `;
 

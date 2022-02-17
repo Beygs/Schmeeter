@@ -1,4 +1,5 @@
 import { Button } from "app/components/Button";
+import { EditTextArea } from "app/components/Form";
 import { useEditPostMutation } from "features/api/apiSlice";
 import { useState } from "react";
 import styled from "styled-components";
@@ -41,16 +42,6 @@ const EditForm = styled.form`
   } 
 `;
 
-const EditTextArea = styled.textarea`
-  width: 100%;
-  resize: none;
-  border-radius: 1rem;
-  font-size: 1.2rem;
-  padding: 1rem;
-  flex: 1;
-  margin-bottom: 3rem;
-`
-
 const EditPostForm = ({ post, setEdit }) => {
   const [text, setText] = useState(post.text);
 
@@ -69,8 +60,8 @@ const EditPostForm = ({ post, setEdit }) => {
       try {
         await editPost({ ...post, text: text, modified: true });
         setEdit(false);
-      } catch (e) {
-        console.error("Error: ", e);
+      } catch (err) {
+        console.error("Error: ", err);
       }
     }
   }

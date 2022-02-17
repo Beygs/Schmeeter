@@ -1,3 +1,6 @@
+import { EditDescription, EditTextArea, LogButton, LogInput } from "app/components/Form";
+import { Section } from "app/components/Section";
+import { MutedText } from "app/components/Typography";
 import { useEditProfileMutation, useGetUserQuery } from "features/api/apiSlice";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -29,7 +32,9 @@ const EditProfileForm = () => {
     setDescription(e.target.value);
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     if (username && description) {
       editProfile({ ...user, username, description });
       navigate("/profile");
@@ -43,22 +48,27 @@ const EditProfileForm = () => {
   } else if (isSuccess) {
     content = (
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Nom d'utilisateur</label>
-        <input
+        <MutedText as="label" htmlFor="username">Nom d'utilisateur</MutedText>
+        <LogInput
           type="text"
           id="username"
           name="username"
           value={username}
           onChange={handleUsernameChange}
         />
-        <label htmlFor="description">Description</label>
-        <textarea
+        <MutedText as="label" htmlFor="description">Description</MutedText>
+        <EditDescription
+          as="textarea"
           name="description"
           id="description"
           value={description}
           onChange={handleDescriptionChange}
         />
-        
+        <LogButton
+          as="input"
+          type="submit"
+          value="Confirmer les changements"
+        />
       </form>
     );
   } else if (isError) {
@@ -66,10 +76,10 @@ const EditProfileForm = () => {
   }
   
   return (
-    <section>
+    <Section>
       <h2>Editer le profil</h2>
       {content}
-    </section>
+    </Section>
   );
 };
 
