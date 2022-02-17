@@ -30,7 +30,7 @@ Welcome on **Shmeeter**. This website is a training to Redux and React. We use a
 
 1. `yarn`
 1. `yarn start`
-1. Go to [http://localhost:3000/Agence](http://localhost:3000/Shmeeter)
+1. Go to [http://localhost:3000/Shmeeter](http://localhost:3000/Shmeeter)
 1. Lezgo !
 
 ## Crédits et remerciements
