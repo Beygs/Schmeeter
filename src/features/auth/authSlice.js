@@ -1,6 +1,6 @@
 import { apiSlice } from "features/api/apiSlice";
 
-const { createSlice, createSelector } = require("@reduxjs/toolkit");
+const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   auth: false,

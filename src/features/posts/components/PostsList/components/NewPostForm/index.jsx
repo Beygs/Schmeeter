@@ -1,4 +1,3 @@
-import { colors } from "app/abstracts/variables";
 import { Button } from "app/components/Button";
 import { useAddNewPostMutation } from "features/api/apiSlice";
 import { myId } from "features/auth/authSlice";

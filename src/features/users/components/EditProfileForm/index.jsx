@@ -1,4 +1,4 @@
-import { EditDescription, EditTextArea, LogButton, LogInput } from "app/components/Form";
+import { EditDescription, LogButton, LogInput } from "app/components/Form";
 import { Section } from "app/components/Section";
 import { MutedText } from "app/components/Typography";
 import { useEditProfileMutation, useGetUserQuery } from "features/api/apiSlice";
