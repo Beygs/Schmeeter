@@ -8,6 +8,21 @@ import { useSelector } from 'react-redux';
 import { selectAuth } from 'features/auth/authSlice';
 import UserProfile from 'features/users/components/UserProfile';
 import EditProfileForm from 'features/users/components/EditProfileForm';
+import styled from 'styled-components';
+
+import "reset.scss";
+import { colors } from 'app/abstracts/variables';
+
+const Wrapper = styled.div`
+  min-height: 100%;
+  background: ${colors.bg};
+  color: ${colors.txt};
+`
+
+const AppWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 function App() {
   const PrivateRoute = ({ children }) => {
@@ -17,17 +32,19 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
-      <div className="App">
-        <Routes>
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/profile" element={<PrivateRoute><UserProfile myprofile /></PrivateRoute>} />
-          <Route path="/profile/edit" element={<PrivateRoute><EditProfileForm /></PrivateRoute>} />
-          <Route path="/users/:userId" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
-          <Route path="/" element={<PostsList />} />
-        </Routes>
-      </div>
+      <Wrapper>
+        <Navbar />
+        <AppWrapper>
+          <Routes>
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/profile" element={<PrivateRoute><UserProfile myprofile /></PrivateRoute>} />
+            <Route path="/profile/edit" element={<PrivateRoute><EditProfileForm /></PrivateRoute>} />
+            <Route path="/users/:userId" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
+            <Route path="/" element={<PostsList />} />
+          </Routes>
+        </AppWrapper>
+      </Wrapper>
     </BrowserRouter>
   );
 }

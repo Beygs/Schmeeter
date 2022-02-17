@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 import EditPostForm from "features/posts/components/EditPostForm";
 import { useState } from "react";
 import { useDeletePostMutation, useEditPostMutation } from "features/api/apiSlice";
+import styled from "styled-components";
+
+const PostCard = styled.article`
+  width: 100%;
+`
 
 const PostExcerpt = ({ post }) => {
   const [edit, setEdit] = useState(false);
@@ -47,7 +52,7 @@ const PostExcerpt = ({ post }) => {
   }
 
   return (
-    <article className="post-excerpt" key={post.id}>
+    <PostCard className="post-excerpt" key={post.id}>
       {isAuth && 
       <Link to={userId === user.id ? "/profile" : `/users/${user.id}`}>
         {user.username}
@@ -71,7 +76,7 @@ const PostExcerpt = ({ post }) => {
         </button>)}
       <TimeAgo timestamp={created_at} />
       {edit && <EditPostForm post={post} setEdit={setEdit} />}
-    </article>
+    </PostCard>
   );
 };
 

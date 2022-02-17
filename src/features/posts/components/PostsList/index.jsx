@@ -1,3 +1,4 @@
+import { Section } from "app/components/Section";
 import { useGetPostsQuery } from "features/api/apiSlice";
 import { selectAuth } from "features/auth/authSlice";
 import { useMemo } from "react";
@@ -38,11 +39,11 @@ const PostsList = () => {
   }
 
   return (
-    <section className="PostsLists">
+    <Section>
       <h2>Posts</h2>
       {isAuth && <NewPostForm />}
       {content}
-    </section>
+    </Section>
   );
 };
 
